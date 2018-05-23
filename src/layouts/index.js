@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -22,29 +22,44 @@ const Player = styled(ReactPlayer)`
   }
 `;
 
-const Layout = ({ children, data, location }) => (
-  <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
-    />
-    <Header data={data} location={location} />
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '0px 1.0875rem 1.45rem',
-        paddingTop: 0,
-      }}
-    >
-      {children()}
-      <Player url={ohWonder} controls height="auto" width="100vw" />
-    </div>
-  </div>
-);
+class Layout extends Component {
+  state = {
+    loadPlayer: false,
+  };
+
+  componentDidMount = () => {
+    this.setState({ loadPlayer: true });
+  };
+
+  render() {
+    const { children, data, location } = this.props;
+    return (
+      <div>
+        <Helmet
+          title={data.site.siteMetadata.title}
+          meta={[
+            { name: 'description', content: 'Sample' },
+            { name: 'keywords', content: 'sample, something' },
+          ]}
+        />
+        <Header data={data} location={location} />
+        <div
+          style={{
+            margin: '0 auto',
+            maxWidth: 960,
+            padding: '0px 1.0875rem 1.45rem',
+            paddingTop: 0,
+          }}
+        >
+          {children()}
+          {this.state.loadPlayer ? (
+            <Player url={ohWonder} controls height="auto" width="100vw" />
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+}
 
 Layout.propTypes = {
   children: PropTypes.func,
