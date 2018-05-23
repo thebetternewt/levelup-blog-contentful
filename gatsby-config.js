@@ -5,6 +5,14 @@ module.exports = {
   },
 
   plugins: [
+    {
+      resolve: 'gatsby-source-contentful',
+      options: {
+        spaceId: 'zrysekyr73wj',
+        accessToken:
+          'ef57165c847fb1fc47ebee5c1638dd255638dc93dba8472b3ca907df75d112bc',
+      },
+    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     {
@@ -28,16 +36,9 @@ module.exports = {
         path: `${__dirname}/static/assets`,
       },
     },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        excerpt_separator: `<!-- end -->`,
-      },
-    },
-
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    'gatsby-plugin-netlify-cms',
+    'gatsby-transformer-remark',
   ],
 };
 
