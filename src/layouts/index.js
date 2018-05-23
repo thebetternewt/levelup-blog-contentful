@@ -1,9 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import styled from 'styled-components';
 
 import Header from '../components/header';
+import ReactPlayer from 'react-player';
+
 import './index.css';
+import ohWonder from '../audios/oh-wonder.mp3';
+
+const Player = styled(ReactPlayer)`
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  position: fixed;
+
+  audio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+`;
 
 const Layout = ({ children, data, location }) => (
   <div>
@@ -24,6 +41,7 @@ const Layout = ({ children, data, location }) => (
       }}
     >
       {children()}
+      <Player url={ohWonder} controls height="auto" width="100vw" />
     </div>
   </div>
 );
